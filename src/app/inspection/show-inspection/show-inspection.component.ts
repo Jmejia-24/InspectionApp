@@ -19,6 +19,7 @@ inspectionTypesMap: Map<number, string> = new Map()
 
   ngOnInit(): void {
     this.inspectionList$ = this.service.getInspectionList();
+    this.inspectionTypesList$ = this.service.getInspectionTypesList();
   }
 
 }
