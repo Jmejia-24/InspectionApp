@@ -39,6 +39,37 @@ inspectionTypesMap: Map<number, string> = new Map()
     this.activateAddEditInspectionComponent = true;
   }
 
+  modalEdit(item: any) {
+    this.inspection = item;
+    this.modalTitle = "Edit Inspection";
+    this.activateAddEditInspectionComponent = true;
+  }
+
+  delete(item: any) {
+    if(confirm(`Are you sure you want to delete inspection ${item.id}`)) {
+      var closeModalBtn = document.getElementById('add-edit-modal-close');
+      if(closeModalBtn) {
+        closeModalBtn.click();
+      }
+
+      var showDeleteSuccess = document.getElementById('delete-success-alert');
+      if(showDeleteSuccess) {
+        showDeleteSuccess.style.display = "block";
+      }
+      setTimeout(function() {
+        if(showDeleteSuccess) {
+          showDeleteSuccess.style.display = "none"
+        }
+      }, 4000);
+      this.inspectionList$ = this.service.getInspectionList();
+    }
+  }
+
+  modalClose() {
+    this.activateAddEditInspectionComponent = false;
+    this.inspectionList$ = this.service.getInspectionList();
+  }
+
   refreshInspectionTypesMap() {
     this.service.getInspectionList().subscribe(data => {
       this.inspectionTypesList = data;
